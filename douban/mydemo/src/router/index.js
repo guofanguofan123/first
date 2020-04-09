@@ -17,7 +17,9 @@ Vue.use(Pagination);
 Vue.use(Router)
 
 export default new Router({
+  // mode:'history',
   routes: [
+    {path: '/',name: 'index',component: index},
     {path:'/index',component:index},
     {path:'/MovieList',component:MovieList},
     {path:'/Search',component:Search},
@@ -25,12 +27,7 @@ export default new Router({
     {path:'/Login',component:Login},
     {path:'/subject/:sid',component:subject},
     {path:'/cindex',component:cindex},
-  
     {path:'/page2',component:page2},
    
-      {path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
-    }
   ]
 })
