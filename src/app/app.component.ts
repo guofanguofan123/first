@@ -22,21 +22,22 @@ selector: 'app-root',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  itemText = '';
+  public visiblity = "all";
   public todo: {
     id: number,
     title: string,
     down: boolean
-  }[] = todo;
+  }[] = JSON.parse(window.localStorage.getItem('todo')) || [];
   public editContent: {
     id: number,
     title: string,
     down: boolean
   }[] = null;
-
   addtodo(e): void{
     const todoContent = e.target.value;
-    if ( todoContent.length > 0){
+    if ( !todoContent.length ){
+      return
+    }
     const last = this.todo[this.todo.length - 1];
     this.todo.push(
       {
@@ -46,7 +47,7 @@ export class AppComponent {
       }
      );
     e.target.value = ' ';
-    }
+
   }
   get toggleAll(){
    return this.todo.every(item => item.down);
@@ -68,4 +69,41 @@ export class AppComponent {
       this.editContent = null;
     }
   }
+  get remainCount(){
+    return this.todo.filter(t => !t.down).length;
+  }
+  clearAllDown(){
+    this.todo = this.todo.filter(t => !t.down);
+  }
+  get filtertodo(){
+    if (this.visiblity === 'all'){
+      return this.todo;
+    }else if (this.visiblity === 'active'){
+      return this.todo.filter(t => !t.down);
+    }else if (this.visiblity === 'completed'){
+      return this.todo.filter(t => t.down);
+    }
+  }
+
+  ngOnInit(): void {
+    this.hashHander();
+    window.onhashchange = this.hashHander.bind(this);
+  }
+  ngDoCheck(){
+    window.localStorage.setItem('todo',JSON.stringify(this.todo))
+
+  }
+  hashHander(){
+      const hash = window.location.hash.substr(1);
+      switch (hash) {
+        case '/': this.visiblity = 'all';
+          break;
+        case '/active': this.visiblity = 'active';
+          break;
+        case '/completed': this.visiblity = 'completed';
+          break;this.todo
+
+      }
+    };
+
 }
