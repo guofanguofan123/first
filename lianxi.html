@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id='d1'>
+  <select name="" id="">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+  </select>
+  <input type="text" value='sa'>
+</div>
+  <button onclick="addContent()">添加</button>
+  <script>
+   function addContent(){
+    var d1=document.getElementById('d1')
+    d1.insertAdjacentHTML('afterend',`<select name="" id="">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+  </select>
+  <input type="text" value='a_x'><br>`)
+    }
+    
+  </script>
+</body>
+</html>
